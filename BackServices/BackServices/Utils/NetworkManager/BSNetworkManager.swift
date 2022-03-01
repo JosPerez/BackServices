@@ -6,13 +6,13 @@
 //
 import Foundation
 import Network
-protocol BSNetworkManagerDelegate {
+public protocol BSNetworkManagerDelegate {
     /// Función con el cambio de status en la red
     func didNetworkChange(status: Bool)
 }
-final class BSNetworkManager {
+final public class BSNetworkManager {
     /// Contiene el monitor de red.
-    static var shared: BSNetworkManager = BSNetworkManager()
+    static public var shared: BSNetworkManager = BSNetworkManager()
     /// Fila despachadora en backfground
     private var queue: DispatchQueue
     /// Monitor de red.
@@ -24,7 +24,7 @@ final class BSNetworkManager {
     /// Contiene variable si es conectado a celular.
     private var isCellAvailible: Bool
     /// Delegado de cambio de red
-    var networkDelegate: BSNetworkManagerDelegate?
+    private var networkDelegate: BSNetworkManagerDelegate?
     /// Iniicalizador
     init() {
         self.cellMonitor = NWPathMonitor(requiredInterfaceType: .cellular)
