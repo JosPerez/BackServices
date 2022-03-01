@@ -11,6 +11,8 @@
 		073E5BAC27CDFC1700770B84 /* BackServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073E5BA127CDFC1700770B84 /* BackServices.framework */; };
 		073E5BB127CDFC1700770B84 /* BackServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BB027CDFC1700770B84 /* BackServicesTests.swift */; };
 		073E5BB227CDFC1700770B84 /* BackServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 073E5BA427CDFC1700770B84 /* BackServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BBD27CDFECE00770B84 /* BSNetworkManager.swift */; };
+		073E5BC227CDFF5300770B84 /* BSBaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		073E5BA527CDFC1700770B84 /* BackServices.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BackServices.docc; sourceTree = "<group>"; };
 		073E5BAB27CDFC1700770B84 /* BackServicesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackServicesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		073E5BB027CDFC1700770B84 /* BackServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackServicesTests.swift; sourceTree = "<group>"; };
+		073E5BBD27CDFECE00770B84 /* BSNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSNetworkManager.swift; sourceTree = "<group>"; };
+		073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSBaseFacade.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 		073E5BA327CDFC1700770B84 /* BackServices */ = {
 			isa = PBXGroup;
 			children = (
+				073E5BBF27CDFF2400770B84 /* WebServices */,
+				073E5BBB27CDFE9A00770B84 /* Utils */,
 				073E5BA427CDFC1700770B84 /* BackServices.h */,
 				073E5BA527CDFC1700770B84 /* BackServices.docc */,
 			);
@@ -83,6 +89,38 @@
 				073E5BB027CDFC1700770B84 /* BackServicesTests.swift */,
 			);
 			path = BackServicesTests;
+			sourceTree = "<group>";
+		};
+		073E5BBB27CDFE9A00770B84 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BBC27CDFEA600770B84 /* NetworkManager */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		073E5BBC27CDFEA600770B84 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BBD27CDFECE00770B84 /* BSNetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		073E5BBF27CDFF2400770B84 /* WebServices */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BC027CDFF3000770B84 /* Base */,
+			);
+			path = WebServices;
+			sourceTree = "<group>";
+		};
+		073E5BC027CDFF3000770B84 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */,
+				073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */,
+				073E5BC227CDFF5300770B84 /* BSBaseFacade.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +438,7 @@
 		073E5BB927CDFC1700770B84 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UBP5PEYJ2Z;
@@ -419,6 +460,7 @@
 		073E5BBA27CDFC1700770B84 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UBP5PEYJ2Z;
