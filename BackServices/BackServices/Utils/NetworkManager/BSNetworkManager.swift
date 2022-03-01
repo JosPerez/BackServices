@@ -13,7 +13,7 @@ protocol BSNetworkManagerDelegate {
 final class BSNetworkManager {
     /// Contiene el monitor de red.
     static var shared: BSNetworkManager = BSNetworkManager()
-    ///
+    /// Fila despachadora en backfground
     private var queue: DispatchQueue
     /// Monitor de red.
     private var cellMonitor: NWPathMonitor
