@@ -24,7 +24,7 @@ final public class BSNetworkManager {
     /// Contiene variable si es conectado a celular.
     private var isCellAvailible: Bool
     /// Delegado de cambio de red
-    private var networkDelegate: BSNetworkManagerDelegate?
+    public var networkDelegate: BSNetworkManagerDelegate?
     /// Iniicalizador
     init() {
         self.cellMonitor = NWPathMonitor(requiredInterfaceType: .cellular)
@@ -36,7 +36,7 @@ final public class BSNetworkManager {
         self.cellMonitor.start(queue: queue)
     }
     /// Iniciar monitoreo de red
-    func start() {
+    public func start() {
         startWiFiMonitoring()
         startCellMonitoring()
     }
@@ -56,11 +56,11 @@ final public class BSNetworkManager {
     }
     /// Estatus de red.
     /// - Returns: Valor si esta encendida.
-    func networkStatus() -> Bool {
+    public func networkStatus() -> Bool {
         return isCellAvailible || isWiFiAvailible
     }
     /// Termina monitoreo de red
-    func cancel() {
+    public func cancel() {
         cellMonitor.cancel()
         wifiMonitor.cancel()
         self.isWiFiAvailible = false
