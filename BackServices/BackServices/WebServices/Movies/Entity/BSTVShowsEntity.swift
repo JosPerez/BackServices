@@ -257,9 +257,9 @@ final public class BSExternalEntity: Codable {
 /// Entidad que contiene links para las imagenes
 final public class BSTVImageEntity: Codable {
     /// Imagen mediana.
-    var medium: String?
+    public var medium: String?
     /// Imagen original
-    var original: String?
+    public var original: String?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case medium
