@@ -38,7 +38,7 @@ final public class BSURLSession: NSObject {
     /// Tiempo limite de cada petición
     internal let TIMEOUT = 10.0
     /// Delegado de envio de infromación
-    private var delegate: BSConnectionDelegate?
+    public var delegate: BSConnectionDelegate?
     /// Manegador de la sesión
     private var manager: URLSession?
     /// Inicializador
@@ -47,6 +47,7 @@ final public class BSURLSession: NSObject {
         self.manager = URLSession(configuration: loadConfiguration(), delegate: self, delegateQueue: nil)
     }
     /// Configura la sesión url
+    ///  - Returns: Configuración de sesión.
     private func loadConfiguration() -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest  = TIMEOUT
