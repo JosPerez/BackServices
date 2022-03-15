@@ -10,46 +10,36 @@ public protocol BSNetworkManagerDelegate {
     /// Función con el cambio de status en la red
     func didNetworkChange(status: Bool)
 }
-final public class BSNetworkManager {
+final public class BSNetworkManager: NSObject {
     /// Contiene el monitor de red.
     static public var shared: BSNetworkManager = BSNetworkManager()
     /// Fila despachadora en backfground
     private var queue: DispatchQueue
     /// Monitor de red.
-    private var cellMonitor: NWPathMonitor
-    /// Monitor de red.
-    private var wifiMonitor: NWPathMonitor
-    /// Contiene variable si es conectado a internet.
+    private var mainMonitor: NWPathMonitor
     private var isWiFiAvailible: Bool
     /// Contiene variable si es conectado a celular.
     private var isCellAvailible: Bool
     /// Delegado de cambio de red
     public var networkDelegate: BSNetworkManagerDelegate?
     /// Iniicalizador
-    init() {
-        self.cellMonitor = NWPathMonitor(requiredInterfaceType: .cellular)
-        self.wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
+    override init() {
+        self.mainMonitor = NWPathMonitor()
         self.queue = DispatchQueue.global(qos: .background)
         self.isWiFiAvailible = false
         self.isCellAvailible = false
-        self.wifiMonitor.start(queue: queue)
-        self.cellMonitor.start(queue: queue)
+        super.init()
     }
     /// Iniciar monitoreo de red
     public func start() {
-        startWiFiMonitoring()
-        startCellMonitoring()
+        self.mainMonitor = NWPathMonitor()
+        startMainMonitoring()
     }
-    /// Revisar red de WiFi.
-    private func startWiFiMonitoring() {
-        cellMonitor.pathUpdateHandler = { path in
+    /// Revisar red.
+    private func startMainMonitoring() {
+        mainMonitor.start(queue: queue)
+        mainMonitor.pathUpdateHandler = { path in
             self.isCellAvailible = path.status == .satisfied
-            self.networkDelegate?.didNetworkChange(status: self.networkStatus())
-        }
-    }
-    /// Revisar red de Celuar.
-    private func startCellMonitoring() {
-        wifiMonitor.pathUpdateHandler = { path in
             self.isWiFiAvailible = path.status == .satisfied
             self.networkDelegate?.didNetworkChange(status: self.networkStatus())
         }
@@ -61,8 +51,7 @@ final public class BSNetworkManager {
     }
     /// Termina monitoreo de red
     public func cancel() {
-        cellMonitor.cancel()
-        wifiMonitor.cancel()
+        mainMonitor.cancel()
         self.isWiFiAvailible = false
         self.isCellAvailible = false
     }

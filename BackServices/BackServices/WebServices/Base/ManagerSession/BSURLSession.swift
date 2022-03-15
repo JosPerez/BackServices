@@ -58,6 +58,10 @@ final public class BSURLSession: NSObject {
     ///   - request: Data de servicio
     ///   - requestName: Nombre del servicio
     public func sendRequest(request: URLRequest, requestName: String) {
+        if !BSNetworkManager.shared.networkStatus() {
+            self.delegate?.recievedError(error: BSFacadeError.notInternetConnection, code: 998, requestName: requestName)
+            return
+        }
         self.manager?.dataTask(with: request, completionHandler: { (data, response, error) in
             if let responseServer = response as? HTTPURLResponse, let unwrapData = data {
                 switch BSResponeCode(rawValue: responseServer.statusCode) {

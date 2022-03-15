@@ -17,6 +17,7 @@
 		073E5BC827D4184800770B84 /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC727D4184800770B84 /* API_KEY.swift */; };
 		073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */; };
 		07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */; };
+		07DFA13627E0425900794952 /* BSUserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFA13527E0425900794952 /* BSUserDefaultManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		073E5BC727D4184800770B84 /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsEntity.swift; sourceTree = "<group>"; };
 		07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsFacade.swift; sourceTree = "<group>"; };
+		07DFA13527E0425900794952 /* BSUserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSUserDefaultManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		073E5BA327CDFC1700770B84 /* BackServices */ = {
 			isa = PBXGroup;
 			children = (
+				07DFA13327E0420C00794952 /* DataPersistence */,
 				073E5BBF27CDFF2400770B84 /* WebServices */,
 				073E5BBB27CDFE9A00770B84 /* Utils */,
 				073E5BA427CDFC1700770B84 /* BackServices.h */,
@@ -173,6 +176,22 @@
 				07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */,
 			);
 			path = Facade;
+			sourceTree = "<group>";
+		};
+		07DFA13327E0420C00794952 /* DataPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				07DFA13427E0422A00794952 /* UserDefault */,
+			);
+			path = DataPersistence;
+			sourceTree = "<group>";
+		};
+		07DFA13427E0422A00794952 /* UserDefault */ = {
+			isa = PBXGroup;
+			children = (
+				07DFA13527E0425900794952 /* BSUserDefaultManager.swift */,
+			);
+			path = UserDefault;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */,
+				07DFA13627E0425900794952 /* BSUserDefaultManager.swift in Sources */,
 				073E5BC827D4184800770B84 /* API_KEY.swift in Sources */,
 				073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */,
 				073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */,

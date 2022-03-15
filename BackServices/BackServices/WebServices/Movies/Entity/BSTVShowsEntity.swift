@@ -155,6 +155,10 @@ public enum BSGenreType: String, Codable {
         let label = try decoder.singleValueContainer().decode(String.self)
         self = BSGenreType(rawValue: label) ?? .Other
     }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.singleValueContainer()
+        try encode.encode(self.rawValue)
+    }
 }
 /// Entidad que contiene horarios de programas de la televisión
 final public class BSScheduleEntity: Codable {
@@ -173,6 +177,11 @@ final public class BSScheduleEntity: Codable {
         self.time = try container.decodeIfPresent(String.self, forKey: .time)
         self.days = try container.decodeIfPresent([String].self, forKey: .days)
     }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.time, forKey: .time)
+        try encode.encode(self.days, forKey: .days)
+    }
 }
 /// Entidad que contiene rating de programas de la televisión
 final public class BSRatingEntity: Codable {
@@ -186,6 +195,10 @@ final public class BSRatingEntity: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Codingkeys.self)
         self.average = try container.decodeIfPresent(Double.self, forKey: .average)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.average, forKey: .average)
     }
 }
 /// Entidad que contiene Cadena de programas de la televisión
@@ -209,6 +222,12 @@ final public class BSNetworkEntity: Codable {
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.country = try container.decodeIfPresent(BSCountryEntity.self, forKey: .country)
     }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.id, forKey: .id)
+        try encode.encode(self.name, forKey: .name)
+        try encode.encode(self.country, forKey: .country)
+    }
 }
 /// Entidad que contiene pais de la caden de programas de la televisión
 final public class BSCountryEntity: Codable {
@@ -230,6 +249,12 @@ final public class BSCountryEntity: Codable {
         self.code = try container.decodeIfPresent(String.self, forKey: .code)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.code, forKey: .code)
+        try encode.encode(self.name, forKey: .name)
+        try encode.encode(self.timezone, forKey: .timezone)
     }
 }
 /// Entidad que contiene codigo para paginas externas
@@ -253,6 +278,12 @@ final public class BSExternalEntity: Codable {
         self.codeTheTVDB = try container.decodeIfPresent(Int.self, forKey: .codeTheTVDB)
         self.codeIMDB = try container.decodeIfPresent(String.self, forKey: .codeIMDB)
     }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.codeTVRange, forKey: .codeTVRange)
+        try encode.encode(self.codeTheTVDB, forKey: .codeTheTVDB)
+        try encode.encode(self.codeIMDB, forKey: .codeIMDB)
+    }
 }
 /// Entidad que contiene links para las imagenes
 final public class BSTVImageEntity: Codable {
@@ -271,12 +302,17 @@ final public class BSTVImageEntity: Codable {
         self.medium = try container.decodeIfPresent(String.self, forKey: .medium)
         self.original = try container.decodeIfPresent(String.self, forKey: .original)
     }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.medium, forKey: .medium)
+        try encode.encode(self.original, forKey: .original)
+    }
 }
 /// Entidad que contiene links para las imagenes
 final public class BSTVLinksEntity: Codable {
-    /// codigo
+    /// Links para serie
     public var tvshow: BSReferenceEntity?
-    /// codigo
+    /// Links para ultimo episodio
     public var lastEpisode: BSReferenceEntity?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
@@ -288,6 +324,11 @@ final public class BSTVLinksEntity: Codable {
         let container = try decoder.container(keyedBy: Codingkeys.self)
         self.tvshow = try container.decodeIfPresent(BSReferenceEntity.self, forKey: .tvshow)
         self.lastEpisode = try container.decodeIfPresent(BSReferenceEntity.self, forKey: .lastEpisode)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.tvshow, forKey: .tvshow)
+        try encode.encode(self.lastEpisode, forKey: .lastEpisode)
     }
 }
 /// Entidad que contiene rating de programas de la televisión
@@ -302,5 +343,33 @@ final public class BSReferenceEntity: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Codingkeys.self)
         self.reference = try container.decodeIfPresent(String.self, forKey: .reference)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var encode = encoder.container(keyedBy: Codingkeys.self)
+        try encode.encode(self.reference, forKey: .reference)
+    }
+}
+final public class BSSaveFavoriteResponse: Codable, CustomStringConvertible {
+    /// Mensaje a mostrar
+    public var message: String?
+    /// Es error
+    public var isError: Bool?
+    /// LLaves para codificar
+    enum Codingkeys: String, CodingKey {
+        case message
+        case isError
+    }
+    public init (message: String, isError: Bool) {
+        self.message = message
+        self.isError = isError
+    }
+    /// Inicializador con decoder
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Codingkeys.self)
+        self.message = try container.decodeIfPresent(String.self, forKey: .message)
+        self.isError = try container.decodeIfPresent(Bool.self, forKey: .isError)
+    }
+    public var description: String {
+        return "message: \(String(describing: self.message)) isError: \(String(describing: self.isError))"
     }
 }
