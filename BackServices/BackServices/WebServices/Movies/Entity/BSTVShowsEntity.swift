@@ -159,9 +159,9 @@ public enum BSGenreType: String, Codable {
 /// Entidad que contiene horarios de programas de la televisión
 final public class BSScheduleEntity: Codable {
     /// Hora del progarma
-    var time: String?
+    public var time: String?
     /// Días del programa
-    var days: [String]?
+    public var days: [String]?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case time
@@ -177,7 +177,7 @@ final public class BSScheduleEntity: Codable {
 /// Entidad que contiene rating de programas de la televisión
 final public class BSRatingEntity: Codable {
     /// Rating promedio.
-    var average: Double?
+    public var average: Double?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case average
@@ -191,11 +191,11 @@ final public class BSRatingEntity: Codable {
 /// Entidad que contiene Cadena de programas de la televisión
 final public class BSNetworkEntity: Codable {
     /// Identifdicador de la cadena.
-    var id: Int?
+    public var id: Int?
     /// Nombre de la cadena.
-    var name: String?
+    public var name: String?
     /// Pais de la cadena
-    var country: BSCountryEntity?
+    public var country: BSCountryEntity?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case id
@@ -213,11 +213,11 @@ final public class BSNetworkEntity: Codable {
 /// Entidad que contiene pais de la caden de programas de la televisión
 final public class BSCountryEntity: Codable {
     /// codigo identifdicador de la cadena.
-    var code: String?
+    public var code: String?
     /// Nombre del pais.
-    var name: String?
+    public var name: String?
     ///  Uso Horario.
-    var timezone: String?
+    public var timezone: String?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case code
@@ -235,11 +235,11 @@ final public class BSCountryEntity: Codable {
 /// Entidad que contiene codigo para paginas externas
 final public class BSExternalEntity: Codable {
     /// codigo para tvrage.
-    var codeTVRange: Int?
+    public var codeTVRange: Int?
     /// codigo para thetvdb
-    var codeTheTVDB: Int?
+    public var codeTheTVDB: Int?
     /// codigo para imdb
-    var codeIMDB: String?
+    public var codeIMDB: String?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case codeTVRange = "tvrage"
@@ -275,9 +275,9 @@ final public class BSTVImageEntity: Codable {
 /// Entidad que contiene links para las imagenes
 final public class BSTVLinksEntity: Codable {
     /// codigo
-    var tvshow: BSReferenceEntity?
+    public var tvshow: BSReferenceEntity?
     /// codigo
-    var lastEpisode: BSReferenceEntity?
+    public var lastEpisode: BSReferenceEntity?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case tvshow = "self"
@@ -293,7 +293,7 @@ final public class BSTVLinksEntity: Codable {
 /// Entidad que contiene rating de programas de la televisión
 final public class BSReferenceEntity: Codable {
     /// Rating promedio.
-    var reference: String?
+    public var reference: String?
     /// LLaves para codificar
     enum Codingkeys: String, CodingKey {
         case reference = "href"
