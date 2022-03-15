@@ -32,7 +32,7 @@ open class BSBaseFacade {
     ///    - code: Código der error del servicio.
     ///    - requestName: Nombre de la petición.
     open func recievedError(error: Error ,code: Int?, requestName: String) {
-        let baseError = BSErrorBase(message: "Se encontro este error", code: code)
+        let baseError = BSErrorBase(message: error.localizedDescription , code: code)
         self.delegate?.recievedEntity(entity: baseError, requestName: requestName)
     }
     /// Decode de la entidad de forma segura.
@@ -60,26 +60,33 @@ open class BSBaseFacade {
         guard let mainUrl = URL(string: newUrl) else {
             throw BSFacadeError.missingUrl
         }
-        print(mainUrl)
+        print("petición a: \(mainUrl)")
         var request: URLRequest = URLRequest(url: mainUrl, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
         request.httpMethod = "GET"
         return request
     }
-    private func getHeaderWithToken() -> [String: String] {
-        return ["Authorization":"Bearer \(Keys.api_key)","Content-Type":"application/json;charset=utf-8"]
-    }
 }
-final public class BSErrorBase {
+final public class BSErrorBase: CustomStringConvertible {
     /// Mensaje de error
-    var message: String?
+    public var message: String?
     /// Codigo de error
-    var code: Int?
+    public var code: Int?
     /// Inicializador con parametros
     public init(message: String?,code: Int?) {
         self.message = message
         self.code = code
     }
+    public var description: String {
+        return "message: \(String(describing: self.message)) - code: \(String(describing: self.code))"
+    }
 }
-enum BSFacadeError: String, Error {
+/// Enumerador con errores en fachada
+public enum BSFacadeError: String, Error, CustomStringConvertible {
+    /// No se pudo convertir URL
     case missingUrl = "!No se encuetra URL¡"
+    /// Error con la conexión a internet
+    case notInternetConnection = "Error de conexión"
+    public var description: String {
+        return "Error: " + self.rawValue
+    }
 }
