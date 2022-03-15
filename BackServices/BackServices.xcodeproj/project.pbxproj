@@ -13,6 +13,10 @@
 		073E5BB227CDFC1700770B84 /* BackServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 073E5BA427CDFC1700770B84 /* BackServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BBD27CDFECE00770B84 /* BSNetworkManager.swift */; };
 		073E5BC227CDFF5300770B84 /* BSBaseFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */; };
+		073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC427CEBAEA00770B84 /* BSURLSession.swift */; };
+		073E5BC827D4184800770B84 /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC727D4184800770B84 /* API_KEY.swift */; };
+		073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */; };
+		07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +37,10 @@
 		073E5BB027CDFC1700770B84 /* BackServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackServicesTests.swift; sourceTree = "<group>"; };
 		073E5BBD27CDFECE00770B84 /* BSNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSNetworkManager.swift; sourceTree = "<group>"; };
 		073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSBaseFacade.swift; sourceTree = "<group>"; };
+		073E5BC427CEBAEA00770B84 /* BSURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSURLSession.swift; sourceTree = "<group>"; };
+		073E5BC727D4184800770B84 /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
+		073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsEntity.swift; sourceTree = "<group>"; };
+		07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsFacade.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,7 @@
 		073E5BBB27CDFE9A00770B84 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				073E5BC627D4183B00770B84 /* Constant */,
 				073E5BBC27CDFEA600770B84 /* NetworkManager */,
 			);
 			path = Utils;
@@ -110,6 +119,7 @@
 		073E5BBF27CDFF2400770B84 /* WebServices */ = {
 			isa = PBXGroup;
 			children = (
+				073E5BC927D41AD600770B84 /* Movies */,
 				073E5BC027CDFF3000770B84 /* Base */,
 			);
 			path = WebServices;
@@ -118,9 +128,51 @@
 		073E5BC027CDFF3000770B84 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				073E5BC327CEBAAE00770B84 /* ManagerSession */,
 				073E5BC127CDFF5300770B84 /* BSBaseFacade.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		073E5BC327CEBAAE00770B84 /* ManagerSession */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BC427CEBAEA00770B84 /* BSURLSession.swift */,
+			);
+			path = ManagerSession;
+			sourceTree = "<group>";
+		};
+		073E5BC627D4183B00770B84 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BC727D4184800770B84 /* API_KEY.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		073E5BC927D41AD600770B84 /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BCC27D41B0F00770B84 /* Facade */,
+				073E5BCA27D41ADF00770B84 /* Entity */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		073E5BCA27D41ADF00770B84 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		073E5BCC27D41B0F00770B84 /* Facade */ = {
+			isa = PBXGroup;
+			children = (
+				07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */,
+			);
+			path = Facade;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,8 +284,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */,
+				073E5BC827D4184800770B84 /* API_KEY.swift in Sources */,
 				073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */,
+				073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */,
 				073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */,
+				07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */,
 				073E5BC227CDFF5300770B84 /* BSBaseFacade.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
