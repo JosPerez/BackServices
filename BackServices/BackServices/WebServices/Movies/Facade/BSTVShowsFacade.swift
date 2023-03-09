@@ -81,7 +81,5 @@ extension BSTVShowsFacade: BSConnectionDelegate {
             decodeEntity(responseType: [BSTVShowsEntity].self, data: data, requestName: requestName)
         default: break
         }
-    
-        
     }
 }

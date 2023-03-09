@@ -18,6 +18,8 @@
 		073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC427CEBAEA00770B84 /* BSURLSession.swift */; };
 		073E5BC827D4184800770B84 /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BC727D4184800770B84 /* API_KEY.swift */; };
 		073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */; };
+		07C7A64329B9806F005D46C2 /* BSFighterFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C7A64229B9806F005D46C2 /* BSFighterFacade.swift */; };
+		07C7A64629B98101005D46C2 /* BSFighterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C7A64529B98101005D46C2 /* BSFighterEntity.swift */; };
 		07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */; };
 		07DFA13627E0425900794952 /* BSUserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFA13527E0425900794952 /* BSUserDefaultManager.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +47,8 @@
 		073E5BC427CEBAEA00770B84 /* BSURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSURLSession.swift; sourceTree = "<group>"; };
 		073E5BC727D4184800770B84 /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		073E5BD127D41CD300770B84 /* BSTVShowsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsEntity.swift; sourceTree = "<group>"; };
+		07C7A64229B9806F005D46C2 /* BSFighterFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSFighterFacade.swift; sourceTree = "<group>"; };
+		07C7A64529B98101005D46C2 /* BSFighterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSFighterEntity.swift; sourceTree = "<group>"; };
 		07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTVShowsFacade.swift; sourceTree = "<group>"; };
 		07DFA13527E0425900794952 /* BSUserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSUserDefaultManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +140,7 @@
 		073E5BBF27CDFF2400770B84 /* WebServices */ = {
 			isa = PBXGroup;
 			children = (
+				07C7A64029B9803E005D46C2 /* Fighters */,
 				073E5BC927D41AD600770B84 /* Movies */,
 				073E5BC027CDFF3000770B84 /* Base */,
 			);
@@ -190,6 +195,31 @@
 				07DFA11B27DFF2F200794952 /* BSTVShowsFacade.swift */,
 			);
 			path = Facade;
+			sourceTree = "<group>";
+		};
+		07C7A64029B9803E005D46C2 /* Fighters */ = {
+			isa = PBXGroup;
+			children = (
+				07C7A64429B980BF005D46C2 /* Entity */,
+				07C7A64129B9804B005D46C2 /* Facade */,
+			);
+			path = Fighters;
+			sourceTree = "<group>";
+		};
+		07C7A64129B9804B005D46C2 /* Facade */ = {
+			isa = PBXGroup;
+			children = (
+				07C7A64229B9806F005D46C2 /* BSFighterFacade.swift */,
+			);
+			path = Facade;
+			sourceTree = "<group>";
+		};
+		07C7A64429B980BF005D46C2 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				07C7A64529B98101005D46C2 /* BSFighterEntity.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		07DFA13327E0420C00794952 /* DataPersistence */ = {
@@ -318,11 +348,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				073E5BD227D41CD300770B84 /* BSTVShowsEntity.swift in Sources */,
+				07C7A64329B9806F005D46C2 /* BSFighterFacade.swift in Sources */,
 				07DFA13627E0425900794952 /* BSUserDefaultManager.swift in Sources */,
 				073E5BC827D4184800770B84 /* API_KEY.swift in Sources */,
 				073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */,
 				073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */,
 				0710AD422992D6D1002E670D /* STPRingView.swift in Sources */,
+				07C7A64629B98101005D46C2 /* BSFighterEntity.swift in Sources */,
 				073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */,
 				07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */,
 				0710AD4629938D24002E670D /* STPRingViewList.swift in Sources */,
@@ -477,7 +509,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UBP5PEYJ2Z;
+				DEVELOPMENT_TEAM = R7TKKHQ7FG;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -505,7 +537,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UBP5PEYJ2Z;
+				DEVELOPMENT_TEAM = R7TKKHQ7FG;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -26,8 +26,12 @@ public struct Part {
 // - MARK: Ring view
 public class RingView: UIView {
     
-    var ringWidth: CGFloat = 20
-    public var dataSource: RingViewDataSource?
+    public var ringWidth: CGFloat = 20 
+    public var dataSource: RingViewDataSource? {
+        didSet {
+            reloadData()
+        }
+    }
     var totalQuantity: Double = 0
     var centerLabels: (up: UILabel, down: UILabel)?
     var labelRadius: CGFloat = 16
@@ -65,9 +69,15 @@ public class RingView: UIView {
     }
     
     public override func draw(_ rect: CGRect) {
-        guard let dataSource = dataSource else { return }
+        guard let dataSource = dataSource else {
+            print("No se encontro")
+            return
+        }
         let numberOfParts = dataSource.numberOfParts(in: self)
-        guard numberOfParts > 0 else { return }
+        guard numberOfParts > 0 else {
+            print("No hay información de segmentos")
+            return
+        }
         
         let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
         let radius = min(rect.width, rect.height) / 2 - ringWidth / 2
@@ -75,10 +85,18 @@ public class RingView: UIView {
         let endAngle = 3 * CGFloat.pi
         totalQuantity = (0..<numberOfParts).reduce(0) { $0 + dataSource.ringView(self, partAt: $1).quantity }
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        if let formattedPrice = formatter.string(from: NSNumber(value: totalQuantity)) {
-            centerLabels?.down.text = formattedPrice
+        guard totalQuantity > 0 else {
+            let path = UIBezierPath(arcCenter: center,
+                                    radius: radius,
+                                    startAngle: startAngle,
+                                    endAngle: endAngle,
+                                    clockwise: true
+            )
+            path.lineCapStyle = .round
+            path.lineWidth = ringWidth
+            UIColor.lightGray.setStroke()
+            path.stroke()
+            return
         }
         
         var cumulativeQuantity: Double = 0
@@ -100,6 +118,10 @@ public class RingView: UIView {
             part.color.setStroke()
             path.stroke()
         }
+    }
+    public func reloadData() {
+        setNeedsDisplay()
+        setNeedsLayout()
     }
 }
 

@@ -81,7 +81,7 @@ final public class BSErrorBase: CustomStringConvertible {
     }
 }
 /// Enumerador con errores en fachada
-public enum BSFacadeError: String, Error, CustomStringConvertible {
+public enum BSFacadeError: String, Error, LocalizedError ,CustomStringConvertible {
     /// No se pudo convertir URL
     case missingUrl = "!No se encuetra URL¡"
     /// Error con la conexión a internet
