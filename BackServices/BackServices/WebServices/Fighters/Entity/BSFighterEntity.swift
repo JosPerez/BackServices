@@ -81,8 +81,8 @@ final public class BSFighterStatEntity: Codable {
     public let subAvgPerFight: String?
     public let takedownDefence: String?
     public let avgFightTime: String?
-    public let sigStrikingLandedByPos: String?
-    public let sigStrikingByTarget: String?
+    public let sigStrikingLandedByPos: BSStrikingPosition?
+    public let sigStrikingByTarget: BSStrikingTarget?
     
     enum Codingkeys: String, CodingKey {
         case fighterStatsId = "fighter_stats_id"
@@ -128,11 +128,92 @@ final public class BSFighterStatEntity: Codable {
             self.subAvgPerFight = try container.decode(String.self, forKey: .subAvgPerFight)
             self.takedownDefence = try container.decode(String.self, forKey: .takedownDefence)
             self.avgFightTime = try container.decode(String.self, forKey: .avgFightTime)
-            self.sigStrikingLandedByPos = try container.decode(String.self, forKey: .sigStrikingLandedByPos)
-            self.sigStrikingByTarget = try container.decode(String.self, forKey: .sigStrikingByTarget)
+            var strPositon = try container.decode(String.self, forKey: .sigStrikingLandedByPos)
+            strPositon = strPositon.replacingOccurrences(of: "'", with: "\"")
+            let jsonDecoder = JSONDecoder()
+            if strPositon != "{}", let data = strPositon.data(using: .utf8) {
+                self.sigStrikingLandedByPos = try jsonDecoder.decode(BSStrikingPosition.self, from: data)
+            } else  {
+                self.sigStrikingLandedByPos = nil
+            }
+            var strTarget = try container.decode(String.self, forKey: .sigStrikingByTarget)
+            strTarget = strTarget.replacingOccurrences(of: "'", with: "\"")
+            if strTarget != "{}", let data = strTarget.data(using: .utf8) {
+                self.sigStrikingByTarget = try jsonDecoder.decode(BSStrikingTarget.self, from: data)
+            } else  {
+                self.sigStrikingByTarget = nil
+            }
         } catch {
             print(error.localizedDescription)
             fatalError()
         }
     }
+}
+public struct BSStrikingPosition: Codable {
+    public var title: String?
+    public var content: [BSStrikingPositonContent]?
+    
+    enum Codingkeys: String, CodingKey {
+        case title
+        case content
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.title = try container.decode(String.self, forKey: .title)
+            self.content = try container.decode([BSStrikingPositonContent].self, forKey: .content)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+}
+public struct BSStrikingPositonContent: Codable {
+    public var name: String
+    public var value: BSStrikingPositonValue
+    
+    enum Codingkeys: String, CodingKey {
+        case name
+        case value
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.name = try container.decode(String.self, forKey: .name)
+            self.value = try container.decode(BSStrikingPositonValue.self, forKey: .value)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+}
+public struct BSStrikingPositonValue: Codable {
+    public var percentage: String
+    public var number: String
+}
+public struct BSStrikingTarget: Codable {
+    public var head: BSStrikingTargetValue
+    public var body: BSStrikingTargetValue
+    public var legs: BSStrikingTargetValue
+    
+    enum Codingkeys: String, CodingKey {
+        case head
+        case body
+        case legs
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.head = try container.decode(BSStrikingTargetValue.self, forKey: .head)
+            self.body = try container.decode(BSStrikingTargetValue.self, forKey: .body)
+            self.legs = try container.decode(BSStrikingTargetValue.self, forKey: .legs)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+}
+public struct BSStrikingTargetValue: Codable {
+    public var percentage: String
+    public var value: String
 }

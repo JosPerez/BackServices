@@ -25,7 +25,7 @@ public struct Part {
 }
 // - MARK: Ring view
 public class RingView: UIView {
-    
+    public var lineCapStyle: CGLineCap = .butt
     public var ringWidth: CGFloat = 20 
     public var dataSource: RingViewDataSource? {
         didSet {
@@ -92,7 +92,7 @@ public class RingView: UIView {
                                     endAngle: endAngle,
                                     clockwise: true
             )
-            path.lineCapStyle = .round
+            path.lineCapStyle = lineCapStyle
             path.lineWidth = ringWidth
             UIColor.lightGray.setStroke()
             path.stroke()
@@ -113,7 +113,7 @@ public class RingView: UIView {
                                     endAngle: partEndAngle,
                                     clockwise: true
             )
-            path.lineCapStyle = .round
+            path.lineCapStyle = .butt
             path.lineWidth = ringWidth
             part.color.setStroke()
             path.stroke()
