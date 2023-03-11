@@ -69,6 +69,7 @@ public class RingView: UIView {
     }
     
     public override func draw(_ rect: CGRect) {
+        super.draw(rect)
         guard let dataSource = dataSource else {
             print("No se encontro")
             return
@@ -94,13 +95,26 @@ public class RingView: UIView {
             )
             path.lineCapStyle = lineCapStyle
             path.lineWidth = ringWidth
-            UIColor.lightGray.setStroke()
-            path.stroke()
+//            UIColor.lightGray.setStroke()
+//            path.stroke()
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            shapeLayer.strokeColor = UIColor.lightGray.cgColor
+            shapeLayer.lineWidth = ringWidth
+            shapeLayer.fillColor = UIColor.clear.cgColor
+            self.layer.addSublayer(shapeLayer)
+            let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+            strokeEndAnimation.duration = 1.5
+            strokeEndAnimation.fromValue = 0.0
+            strokeEndAnimation.toValue = 1.0
+            strokeEndAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            shapeLayer.add(strokeEndAnimation, forKey: "strokeEndAnimation")
             return
         }
         
         var cumulativeQuantity: Double = 0
-        
+        var shapeLayers = [CAShapeLayer]()
+
         for i in 0..<numberOfParts {
             let part = dataSource.ringView(self, partAt: i)
             let partStartAngle = startAngle + CGFloat(Float(cumulativeQuantity / totalQuantity) * Float(endAngle - startAngle))
@@ -113,10 +127,34 @@ public class RingView: UIView {
                                     endAngle: partEndAngle,
                                     clockwise: true
             )
+//            path.lineCapStyle = .butt
+//            path.lineWidth = ringWidth
+//            part.color.setStroke()
+//            path.stroke()
             path.lineCapStyle = .butt
             path.lineWidth = ringWidth
-            part.color.setStroke()
-            path.stroke()
+            
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            shapeLayer.strokeColor = part.color.cgColor
+            shapeLayer.lineWidth = ringWidth
+            shapeLayer.fillColor = UIColor.clear.cgColor
+            shapeLayers.append(shapeLayer)
+        }
+        for shapeLayer in shapeLayers {
+            self.layer.addSublayer(shapeLayer)
+        }
+        let delayIncrement = 0.3
+        var delay = 0.0
+        for shapeLayer in shapeLayers {
+            let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+            strokeEndAnimation.duration = 2.0
+            strokeEndAnimation.fromValue = 0.0
+            strokeEndAnimation.toValue = 1.0
+            strokeEndAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            shapeLayer.add(strokeEndAnimation, forKey: "strokeEndAnimation")
+            strokeEndAnimation.beginTime = CACurrentMediaTime() + delay
+            delay += delayIncrement
         }
     }
     public func reloadData() {

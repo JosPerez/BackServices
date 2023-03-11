@@ -27,6 +27,15 @@ final public class BSFighterFacade: BSBaseFacade {
             print(error)
         }
     }
+    public func getFighterHistorysBy(id: Int) {
+        do {
+            let request = try getRequest(uri: "fighter/history/\(id)")
+            connection.delegate = self
+            connection.sendRequest(request: request, requestName: String(describing: BSFighterHistory.self))
+        } catch let error {
+            print(error)
+        }
+    }
 }
 extension BSFighterFacade: BSConnectionDelegate {
     public func recievedData(data: Data, requestName: String) {
@@ -35,6 +44,8 @@ extension BSFighterFacade: BSConnectionDelegate {
             decodeEntity(responseType: [BSFighterEntity].self, data: data, requestName: requestName)
         case  String(describing: BSFighterStatEntity.self):
             decodeEntity(responseType: BSFighterStatEntity.self, data: data, requestName: requestName)
+        case  String(describing: BSFighterHistory.self):
+            decodeEntity(responseType: BSFighterHistory.self, data: data, requestName: requestName)
         default: break
         }
     }

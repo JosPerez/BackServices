@@ -217,3 +217,64 @@ public struct BSStrikingTargetValue: Codable {
     public var percentage: String
     public var value: String
 }
+public struct BSFighterHistory: Codable {
+    public var fighterID: Int
+    public var fights:[BSFightResponse]?
+    enum Codingkeys: String, CodingKey {
+        case fighter_id
+        case fights
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.fighterID = try container.decode(Int.self, forKey: .fighter_id)
+            var fights = try container.decode(String.self, forKey: .fights)
+            fights = fights.replacingOccurrences(of: "'", with: "\"")
+            fights = fights.replacingOccurrences(of: "Dana White\"s", with: "Dana White's")
+            fights = fights.replacingOccurrences(of: "Jorge Masvidal\"s", with: "Jorge Masvidal's")
+            fights = fights.replacingOccurrences(of: "Don\"Tale Mayes", with: "Don'Tale Mayes")
+            fights = fights.replacingOccurrences(of: "Jack\"s", with: "Jack's")
+            
+            let jsonDecoder = JSONDecoder()
+            if let data = fights.data(using: .utf8) {
+                self.fights = try jsonDecoder.decode([BSFightResponse].self, from: data)
+            }
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+    
+}
+public struct BSFightResponse: Codable {
+    public var result: String
+    public var rival: String
+    public var event: String
+    public var method: String
+    public var round: String
+    public var roundTime: String
+    
+    enum Codingkeys: String, CodingKey {
+        case result = "Result"
+        case rival = "Rival"
+        case event = "Event"
+        case method = "Method"
+        case round = "Round"
+        case roundTime = "Round_time"
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.result = try container.decode(String.self, forKey: .result)
+            self.rival = try container.decode(String.self, forKey: .rival)
+            self.event = try container.decode(String.self, forKey: .event)
+            self.method = try container.decode(String.self, forKey: .method)
+            self.round = try container.decode(String.self, forKey: .round)
+            self.roundTime = try container.decode(String.self, forKey: .roundTime)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+}
+

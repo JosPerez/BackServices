@@ -47,8 +47,14 @@ open class BSBaseFacade {
                 self.delegate?.recievedEntity(entity: response, requestName: requestName)
             } catch let error {
                 print(error)
-                let baseError = BSErrorBase(message: "Problema en el decodeo", code: 999)
-                self.delegate?.recievedEntity(entity: baseError, requestName: requestName)
+                do {
+                    let response = try JSONDecoder().decode(BSErrorBase.self, from: data)
+                    self.delegate?.recievedEntity(entity: response, requestName: requestName)
+                } catch let error {
+                    print(error)
+                    let baseError = BSErrorBase(message: "Problema en el decodeo", code: 999)
+                    self.delegate?.recievedEntity(entity: baseError, requestName: requestName)
+                }
             }
         }
     }
@@ -66,7 +72,7 @@ open class BSBaseFacade {
         return request
     }
 }
-final public class BSErrorBase: CustomStringConvertible {
+final public class BSErrorBase: Codable, CustomStringConvertible {
     /// Mensaje de error
     public var message: String?
     /// Codigo de error
@@ -79,6 +85,15 @@ final public class BSErrorBase: CustomStringConvertible {
     public var description: String {
         return "message: \(String(describing: self.message)) - code: \(String(describing: self.code))"
     }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.message = try container.decodeIfPresent(String.self, forKey: .message)
+            self.code = try container.decodeIfPresent(Int.self, forKey: .code)
+        } catch let error {
+            throw BSFacadeError.baseErrorBadDecoding
+        }
+    }
 }
 /// Enumerador con errores en fachada
 public enum BSFacadeError: String, Error, LocalizedError ,CustomStringConvertible {
@@ -86,6 +101,8 @@ public enum BSFacadeError: String, Error, LocalizedError ,CustomStringConvertibl
     case missingUrl = "!No se encuetra URL¡"
     /// Error con la conexión a internet
     case notInternetConnection = "Error de conexión"
+    /// Error con decode de entidad error
+    case baseErrorBadDecoding = "Entidad de error mal decodeo"
     public var description: String {
         return "Error: " + self.rawValue
     }
