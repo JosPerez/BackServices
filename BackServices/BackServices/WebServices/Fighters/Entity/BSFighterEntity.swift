@@ -67,16 +67,16 @@ final public class BSFighterStatEntity: Codable {
     public let fighterId: Int
     public let record: String?
     public let winsByKo: Int
-    public let winsByFirstRoundFinished: Int?
+    public let winsByFirstRoundFinished: Int
     public let sigStrikingLanded: Int?
     public let sigStrikingThrow: Int?
     public let takedownsAttempted : Int?
     public let takedownsLanded : Int?
     public let takedownsAvg: String?
     public let sigStrikingLandedMin: String?
-    public let avgKnockdownFight: String?
+    public let avgKnockdownFight: String
     public let strikingDefence: String?
-    public let knockdownAvg: String?
+    public let knockdownAvg: String
     public let sigStrikingRecievedMin: String?
     public let subAvgPerFight: String?
     public let takedownDefence: String?
@@ -230,11 +230,11 @@ public struct BSFighterHistory: Codable {
             self.fighterID = try container.decode(Int.self, forKey: .fighter_id)
             var fights = try container.decode(String.self, forKey: .fights)
             fights = fights.replacingOccurrences(of: "'", with: "\"")
-            fights = fights.replacingOccurrences(of: "Dana White\"s", with: "Dana White's")
-            fights = fights.replacingOccurrences(of: "Jorge Masvidal\"s", with: "Jorge Masvidal's")
-            fights = fights.replacingOccurrences(of: "Don\"Tale Mayes", with: "Don'Tale Mayes")
-            fights = fights.replacingOccurrences(of: "Jack\"s", with: "Jack's")
-            
+            let regex = try NSRegularExpression(pattern: "([a-zA-Z])\"([asST])", options: [])
+            // replace occurrences with apostrophe followed by "s" or "S"
+            fights = regex.stringByReplacingMatches(in: fights, options: [], range: NSRange(location: 0, length: fights.utf16.count), withTemplate: "'$1")
+            // replace occurrences of "\" with "'"
+            fights = fights.replacingOccurrences(of: "\\", with: "'")
             let jsonDecoder = JSONDecoder()
             if let data = fights.data(using: .utf8) {
                 self.fights = try jsonDecoder.decode([BSFightResponse].self, from: data)

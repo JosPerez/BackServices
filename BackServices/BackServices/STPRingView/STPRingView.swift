@@ -27,11 +27,7 @@ public struct Part {
 public class RingView: UIView {
     public var lineCapStyle: CGLineCap = .butt
     public var ringWidth: CGFloat = 20 
-    public var dataSource: RingViewDataSource? {
-        didSet {
-            reloadData()
-        }
-    }
+    public var dataSource: RingViewDataSource?
     var totalQuantity: Double = 0
     var centerLabels: (up: UILabel, down: UILabel)?
     var labelRadius: CGFloat = 16
@@ -156,10 +152,6 @@ public class RingView: UIView {
             strokeEndAnimation.beginTime = CACurrentMediaTime() + delay
             delay += delayIncrement
         }
-    }
-    public func reloadData() {
-        setNeedsDisplay()
-        setNeedsLayout()
     }
 }
 

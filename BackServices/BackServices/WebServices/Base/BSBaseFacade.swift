@@ -72,7 +72,7 @@ open class BSBaseFacade {
         return request
     }
 }
-final public class BSErrorBase: Codable, CustomStringConvertible {
+final public class BSErrorBase: Codable, Error, CustomStringConvertible {
     /// Mensaje de error
     public var message: String?
     /// Codigo de error
@@ -91,6 +91,7 @@ final public class BSErrorBase: Codable, CustomStringConvertible {
             self.message = try container.decodeIfPresent(String.self, forKey: .message)
             self.code = try container.decodeIfPresent(Int.self, forKey: .code)
         } catch let error {
+            print(error)
             throw BSFacadeError.baseErrorBadDecoding
         }
     }

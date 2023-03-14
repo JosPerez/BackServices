@@ -16,18 +16,15 @@ final public class BSNetworkManager: NSObject {
     /// Fila despachadora en backfground
     private var queue: DispatchQueue
     /// Monitor de red.
-    private var mainMonitor: NWPathMonitor
-    private var isWiFiAvailible: Bool
-    /// Contiene variable si es conectado a celular.
-    private var isCellAvailible: Bool
+    private var mainMonitor: NWPathMonitor?
+    /// Contiene variable si es conectado a internet.
+    private var isInternetAvailable: Bool
     /// Delegado de cambio de red
     public var networkDelegate: BSNetworkManagerDelegate?
     /// Iniicalizador
     override init() {
-        self.mainMonitor = NWPathMonitor()
         self.queue = DispatchQueue.global(qos: .background)
-        self.isWiFiAvailible = false
-        self.isCellAvailible = false
+        self.isInternetAvailable = false
         super.init()
     }
     /// Iniciar monitoreo de red
@@ -37,22 +34,21 @@ final public class BSNetworkManager: NSObject {
     }
     /// Revisar red.
     private func startMainMonitoring() {
-        mainMonitor.start(queue: queue)
-        mainMonitor.pathUpdateHandler = { path in
-            self.isCellAvailible = path.status == .satisfied
-            self.isWiFiAvailible = path.status == .satisfied
+        mainMonitor?.start(queue: queue)
+        mainMonitor?.pathUpdateHandler = { path in
+            self.isInternetAvailable = path.status == .satisfied
             self.networkDelegate?.didNetworkChange(status: self.networkStatus())
         }
     }
     /// Estatus de red.
     /// - Returns: Valor si esta encendida.
     public func networkStatus() -> Bool {
-        return isCellAvailible || isWiFiAvailible
+        return isInternetAvailable
     }
     /// Termina monitoreo de red
     public func cancel() {
-        mainMonitor.cancel()
-        self.isWiFiAvailible = false
-        self.isCellAvailible = false
+        mainMonitor?.cancel()
+        self.isInternetAvailable = false
+        mainMonitor = nil
     }
 }

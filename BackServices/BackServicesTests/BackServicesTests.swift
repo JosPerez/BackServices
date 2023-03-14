@@ -8,7 +8,15 @@
 import XCTest
 @testable import BackServices
 
-class BackServicesTests: XCTestCase {
+class BackServicesTests: XCTestCase, BSResponseDelegate {
+    func recievedEntity<T>(entity: T, requestName: String) {
+        switch requestName {
+        case String(describing: BSFighterHistory.self):
+            print("Next \(entity)")
+        default: break
+        }
+    }
+    
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -18,9 +26,7 @@ class BackServicesTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCodableFighter() throws {        
     }
 
     func testPerformanceExample() throws {

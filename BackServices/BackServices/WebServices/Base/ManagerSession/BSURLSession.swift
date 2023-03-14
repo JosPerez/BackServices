@@ -36,7 +36,7 @@ enum BSResponeCode {
 /// Clase que hace manejo de  sesión
 final public class BSURLSession: NSObject {
     /// Tiempo limite de cada petición
-    internal let TIMEOUT = 10.0
+    internal let TIMEOUT = 15.0
     /// Delegado de envio de infromación
     public var delegate: BSConnectionDelegate?
     /// Manegador de la sesión
@@ -51,6 +51,9 @@ final public class BSURLSession: NSObject {
     private func loadConfiguration() -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest  = TIMEOUT
+        config.waitsForConnectivity = true
+        config.allowsCellularAccess = true
+        config.allowsExpensiveNetworkAccess = true
         return config
     }
     /// Función que inicia petición a un servicio web.
@@ -70,10 +73,12 @@ final public class BSURLSession: NSObject {
                 case .failed(let code):
                     if let error = error {
                         self.delegate?.recievedError(error: error, code: code, requestName: requestName)
+                    } else if code == 404 {
+                        let error = BSErrorBase(message: "Servicio no encontrado", code: code)
+                        self.delegate?.recievedError(error: error, code: code, requestName: requestName)
                     }
                 }
             }
-            
         }).resume()
     }
 }
