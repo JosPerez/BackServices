@@ -230,7 +230,7 @@ public struct BSFighterHistory: Codable {
             self.fighterID = try container.decode(Int.self, forKey: .fighter_id)
             var fights = try container.decode(String.self, forKey: .fights)
             fights = fights.replacingOccurrences(of: "'", with: "\"")
-            let regex = try NSRegularExpression(pattern: "([a-zA-Z])\"([asST])", options: [])
+            let regex = try NSRegularExpression(pattern: "([a-zA-Z])\"([arsST])", options: [])
             // replace occurrences with apostrophe followed by "s" or "S"
             fights = regex.stringByReplacingMatches(in: fights, options: [], range: NSRange(location: 0, length: fights.utf16.count), withTemplate: "'$1")
             // replace occurrences of "\" with "'"
@@ -277,4 +277,55 @@ public struct BSFightResponse: Codable {
         }
     }
 }
-
+public struct BSRankingResponse: Codable {
+    public let rankingID: Int
+    public let title: String
+    public let imgUrl: String
+    public let fighters: [BSFighterRanking]
+    enum Codingkeys: String, CodingKey {
+        case rankingID = "rankings_id"
+        case title
+        case imgUrl = "img_url"
+        case fighters
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.rankingID = try container.decode(Int.self, forKey: .rankingID)
+            self.title = try container.decode(String.self, forKey: .title)
+            self.imgUrl = try container.decode(String.self, forKey: .imgUrl)
+            self.fighters = try container.decode([BSFighterRanking].self, forKey: .fighters)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+        
+    }
+}
+public struct BSFighterRanking: Codable {
+    public let fighterRankID: Int
+    public let rankingID: Int
+    public let fighterID: Int
+    public let name: String
+    public let rank: Int
+    enum Codingkeys: String, CodingKey {
+        case fighterRankID = "fighter_rank_id"
+        case rankingID = "ranking_id"
+        case fighterID = "fighter_id"
+        case name
+        case rank
+    }
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: Codingkeys.self)
+            self.fighterRankID = try container.decode(Int.self, forKey: .fighterRankID)
+            self.fighterID = try container.decode(Int.self, forKey: .fighterID)
+            self.rankingID = try container.decode(Int.self, forKey: .rankingID)
+            self.name = try container.decode(String.self, forKey: .name)
+            self.rank = try container.decode(Int.self, forKey: .rank)
+        } catch {
+            print(error.localizedDescription)
+            fatalError()
+        }
+    }
+}

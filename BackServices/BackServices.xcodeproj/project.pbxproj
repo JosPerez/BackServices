@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0710AD422992D6D1002E670D /* STPRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710AD412992D6D1002E670D /* STPRingView.swift */; };
-		0710AD4629938D24002E670D /* STPRingViewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710AD4529938D24002E670D /* STPRingViewList.swift */; };
+		0710AD422992D6D1002E670D /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710AD412992D6D1002E670D /* RingView.swift */; };
+		0710AD4629938D24002E670D /* RingViewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710AD4529938D24002E670D /* RingViewList.swift */; };
+		0731D7D829C01287008D0FDF /* VBSBarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0731D7D729C01287008D0FDF /* VBSBarGraphView.swift */; };
 		073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BA527CDFC1700770B84 /* BackServices.docc */; };
 		073E5BAC27CDFC1700770B84 /* BackServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073E5BA127CDFC1700770B84 /* BackServices.framework */; };
 		073E5BB127CDFC1700770B84 /* BackServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E5BB027CDFC1700770B84 /* BackServicesTests.swift */; };
@@ -35,8 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0710AD412992D6D1002E670D /* STPRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STPRingView.swift; sourceTree = "<group>"; };
-		0710AD4529938D24002E670D /* STPRingViewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STPRingViewList.swift; sourceTree = "<group>"; };
+		0710AD412992D6D1002E670D /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
+		0710AD4529938D24002E670D /* RingViewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingViewList.swift; sourceTree = "<group>"; };
+		0731D7D729C01287008D0FDF /* VBSBarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VBSBarGraphView.swift; sourceTree = "<group>"; };
 		073E5BA127CDFC1700770B84 /* BackServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BackServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		073E5BA427CDFC1700770B84 /* BackServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackServices.h; sourceTree = "<group>"; };
 		073E5BA527CDFC1700770B84 /* BackServices.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BackServices.docc; sourceTree = "<group>"; };
@@ -72,13 +74,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0710AD402992D6B8002E670D /* STPRingView */ = {
+		0710AD402992D6B8002E670D /* RingView */ = {
 			isa = PBXGroup;
 			children = (
-				0710AD412992D6D1002E670D /* STPRingView.swift */,
-				0710AD4529938D24002E670D /* STPRingViewList.swift */,
+				0731D7D629C01260008D0FDF /* VBSBarGraphView */,
+				0710AD412992D6D1002E670D /* RingView.swift */,
+				0710AD4529938D24002E670D /* RingViewList.swift */,
 			);
-			path = STPRingView;
+			path = RingView;
+			sourceTree = "<group>";
+		};
+		0731D7D629C01260008D0FDF /* VBSBarGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				0731D7D729C01287008D0FDF /* VBSBarGraphView.swift */,
+			);
+			path = VBSBarGraphView;
 			sourceTree = "<group>";
 		};
 		073E5B9727CDFC1700770B84 = {
@@ -102,7 +113,7 @@
 		073E5BA327CDFC1700770B84 /* BackServices */ = {
 			isa = PBXGroup;
 			children = (
-				0710AD402992D6B8002E670D /* STPRingView */,
+				0710AD402992D6B8002E670D /* RingView */,
 				07DFA13327E0420C00794952 /* DataPersistence */,
 				073E5BBF27CDFF2400770B84 /* WebServices */,
 				073E5BBB27CDFE9A00770B84 /* Utils */,
@@ -353,11 +364,12 @@
 				073E5BC827D4184800770B84 /* API_KEY.swift in Sources */,
 				073E5BA627CDFC1700770B84 /* BackServices.docc in Sources */,
 				073E5BC527CEBAEA00770B84 /* BSURLSession.swift in Sources */,
-				0710AD422992D6D1002E670D /* STPRingView.swift in Sources */,
+				0731D7D829C01287008D0FDF /* VBSBarGraphView.swift in Sources */,
+				0710AD422992D6D1002E670D /* RingView.swift in Sources */,
 				07C7A64629B98101005D46C2 /* BSFighterEntity.swift in Sources */,
 				073E5BBE27CDFECE00770B84 /* BSNetworkManager.swift in Sources */,
 				07DFA11C27DFF2F200794952 /* BSTVShowsFacade.swift in Sources */,
-				0710AD4629938D24002E670D /* STPRingViewList.swift in Sources */,
+				0710AD4629938D24002E670D /* RingViewList.swift in Sources */,
 				073E5BC227CDFF5300770B84 /* BSBaseFacade.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

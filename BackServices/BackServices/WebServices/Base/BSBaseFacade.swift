@@ -61,7 +61,7 @@ open class BSBaseFacade {
     /// Decode de la entidad de forma segura.
     ///  - Parameters:
     ///    - responseType: Tipo Entidad.
-    func getRequest(uri: String) throws -> URLRequest {
+    func getRequest(uri: String, isTokenSecure:Bool=true) throws -> URLRequest {
         let newUrl: String = url + uri
         guard let mainUrl = URL(string: newUrl) else {
             throw BSFacadeError.missingUrl
@@ -69,6 +69,9 @@ open class BSBaseFacade {
         print("petición a: \(mainUrl)")
         var request: URLRequest = URLRequest(url: mainUrl, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
         request.httpMethod = "GET"
+        if isTokenSecure {
+            request.setValue(Keys().apiKey, forHTTPHeaderField: "token")
+        }
         return request
     }
 }
@@ -81,6 +84,10 @@ final public class BSErrorBase: Codable, Error, CustomStringConvertible {
     public init(message: String?,code: Int?) {
         self.message = message
         self.code = code
+    }
+    enum CodingKeys: String, CodingKey {
+        case message
+        case code
     }
     public var description: String {
         return "message: \(String(describing: self.message)) - code: \(String(describing: self.code))"
